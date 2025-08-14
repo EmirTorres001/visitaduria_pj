@@ -24,20 +24,15 @@ class VisitaduriaController extends Controller
     {
         $request->validate([
             'juzgado_id' => 'required|exists:juzgados,id',
-            'tipo_visita' => 'required|string',
+            'tipo_visita' => 'required|string|max:255',
             'fecha_visita' => 'required|date',
-            'proceso' => 'required|string',
+            'proceso' => 'required|string|max:255',
         ]);
-
-        // Generar folio automáticamente
-        $ultimo = Visitaduria::latest()->first();
-        $folio = $ultimo ? 'VST' . str_pad($ultimo->id + 1, 4, '0', STR_PAD_LEFT) : 'VST0001';
 
         $juzgado = Juzgado::find($request->juzgado_id);
 
         Visitaduria::create([
-            'folio' => $folio,
-            'juzgado_id' => $juzgado->id,
+            'juzgado_id' => $request->juzgado_id,
             'municipio' => $juzgado->municipio,
             'tipo_visita' => $request->tipo_visita,
             'fecha_visita' => $request->fecha_visita,
@@ -48,36 +43,36 @@ class VisitaduriaController extends Controller
     }
 
     public function edit(Visitaduria $visitaduria)
-{
-    $juzgados = Juzgado::all();
-    return view('visitadurias.edit', compact('visitaduria', 'juzgados'));
-}
+    {
+        $juzgados = Juzgado::all();
+        return view('visitadurias.edit', compact('visitaduria', 'juzgados'));
+    }
 
-public function update(Request $request, Visitaduria $visitaduria)
-{
-    $request->validate([
-        'juzgado_id' => 'required|exists:juzgados,id',
-        'tipo_visita' => 'required|string',
-        'fecha_visita' => 'required|date',
-        'proceso' => 'required|string',
-    ]);
+    public function update(Request $request, Visitaduria $visitaduria)
+    {
+        $request->validate([
+            'juzgado_id' => 'required|exists:juzgados,id',
+            'tipo_visita' => 'required|string|max:255',
+            'fecha_visita' => 'required|date',
+            'proceso' => 'required|string|max:255',
+        ]);
 
-    $juzgado = Juzgado::find($request->juzgado_id);
+        $juzgado = Juzgado::find($request->juzgado_id);
 
-    $visitaduria->update([
-        'juzgado_id' => $juzgado->id,
-        'municipio' => $juzgado->municipio,
-        'tipo_visita' => $request->tipo_visita,
-        'fecha_visita' => $request->fecha_visita,
-        'proceso' => $request->proceso,
-    ]);
+        $visitaduria->update([
+            'juzgado_id' => $request->juzgado_id,
+            'municipio' => $juzgado->municipio,
+            'tipo_visita' => $request->tipo_visita,
+            'fecha_visita' => $request->fecha_visita,
+            'proceso' => $request->proceso,
+        ]);
 
-    return redirect()->route('visitadurias.index')->with('success', 'Visitaduría actualizada correctamente');
-}
+        return redirect()->route('visitadurias.index')->with('success', 'Visitaduría actualizada correctamente');
+    }
 
-public function destroy(Visitaduria $visitaduria)
-{
-    $visitaduria->delete();
-    return redirect()->route('visitadurias.index')->with('success', 'Visitaduría eliminada correctamente');
-}
+    public function destroy(Visitaduria $visitaduria)
+    {
+        $visitaduria->delete();
+        return redirect()->route('visitadurias.index')->with('success', 'Visitaduría eliminada correctamente');
+    }
 }

@@ -18,6 +18,12 @@ class Visitaduria extends Model
         'proceso'
     ];
 
+    protected $dates = [
+    'fecha_visita',
+    'created_at',
+    'updated_at'
+];
+
     public function juzgado()
     {
         return $this->belongsTo(Juzgado::class);

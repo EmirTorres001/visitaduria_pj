@@ -2,7 +2,6 @@
 
 @section('content')
 <div style="padding: 20px;">
-    <h2>Visitadurías Registradas</h2>
 
     @if(session('success'))
         <div style="color: green; margin-bottom: 10px;">

@@ -57,7 +57,7 @@
             <div style="margin-bottom: 15px;">
                 <label style="display: block; margin-bottom: 5px; font-weight: 500;">Fecha de visita:</label>
                 <input type="date" name="fecha_visita" required
-                       value="{{ $visitaduria->fecha_visita->format('Y-m-d') }}"
+                       value="{{ date('Y-m-d', strtotime($visitaduria->fecha_visita)) }}"
                        style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ccc; transition: all 0.2s;">
             </div>
 
