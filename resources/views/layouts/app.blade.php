@@ -73,7 +73,7 @@
         <a href="{{ route('juzgados.index') }}" class="menu-button">INFORMES</a>
         <a href="{{ route('seguimiento_juzgados.index') }}" class="menu-button">SEGUIMIENTOS JUZGADOS</a>
         <a href="{{ route('trabajo_pendiente.index') }}" class="menu-button">TRABAJO PENDIENTE</a>
-        <a href="{{ route('juzgados.index') }}" class="menu-button">LIBRO DE GOBIERNO</a>
+        <a href="{{ route('libro_gobierno.index') }}" class="menu-button">LIBRO DE GOBIERNO</a>
         <a href="{{ route('juzgados.index') }}" class="menu-button">JUZGADOS</a>
         <a href="{{ route('visitadurias.index') }}" class="menu-button">VISITADURIAS</a>
     </div>
