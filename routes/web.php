@@ -5,6 +5,8 @@ use App\Http\Controllers\TrabajoPendienteController;
 use App\Http\Controllers\VisitaduriaController;
 use App\Http\Controllers\SeguimientoJuzgadoController;
 use App\Http\Controllers\LibroGobiernoController;
+use App\Http\Controllers\InformeController;
+use App\Http\Controllers\DashboardController;
 
 Route::view('/', 'home')->name('home');
 
@@ -28,3 +30,9 @@ Route::resource('seguimiento_juzgados', SeguimientoJuzgadoController::class);
 
 Route::get('/libro-gobierno', [LibroGobiernoController::class, 'index'])->name('libro_gobierno.index');
 Route::get('/libro-gobierno/pdf', [LibroGobiernoController::class, 'exportPdf'])->name('libro_gobierno.pdf');
+
+
+#INFORMES
+
+Route::get('/informes', [DashboardController::class, 'index'])->name('informes.index');
+Route::get('/informes/pdf', [DashboardController::class, 'exportPDF'])->name('informes.pdf');
