@@ -25,4 +25,6 @@ Route::resource('seguimiento_juzgados', SeguimientoJuzgadoController::class);
 
 
 #LIBRO GOBIERNO
+
 Route::get('/libro-gobierno', [LibroGobiernoController::class, 'index'])->name('libro_gobierno.index');
+Route::get('/libro-gobierno/pdf', [LibroGobiernoController::class, 'exportPdf'])->name('libro_gobierno.pdf');

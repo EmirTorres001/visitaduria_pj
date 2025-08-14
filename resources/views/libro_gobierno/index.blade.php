@@ -5,24 +5,37 @@
 
     <h2 style="text-align:center; margin-bottom: 20px;">Libro de Gobierno</h2>
 
+    {{-- Botón de exportar PDF --}}
+    <div style="text-align:center; margin-bottom: 20px;">
+        <a href="{{ route('libro_gobierno.pdf') }}"
+           style="background-color: #21584F;
+                  color: white;
+                  padding: 10px 20px;
+                  border-radius: 5px;
+                  text-decoration: none;
+                  font-weight: bold;">
+            📄 Exportar a PDF
+        </a>
+    </div>
+
     {{-- Juzgados --}}
     <h3>Juzgados Registrados</h3>
-    <table style="width:100%; border-collapse: collapse; margin-bottom: 30px;">
+    <table style="width:100%; border-collapse: collapse; margin-bottom: 30px; box-shadow: 0 2px 6px rgba(0,0,0,0.15);">
         <thead style="background-color:#21584F; color:white;">
             <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Tipo</th>
-                <th>Municipio</th>
+                <th style="padding: 10px;">ID</th>
+                <th style="padding: 10px;">Nombre</th>
+                <th style="padding: 10px;">Tipo</th>
+                <th style="padding: 10px;">Municipio</th>
             </tr>
         </thead>
         <tbody>
             @foreach($juzgados as $j)
-            <tr>
-                <td>{{ $j->id }}</td>
-                <td>{{ $j->nombre }}</td>
-                <td>{{ $j->tipo }}</td>
-                <td>{{ $j->municipio }}</td>
+            <tr style="background-color: #f8f8f8; border-bottom: 1px solid #ddd;">
+                <td style="padding: 8px;">{{ $j->id }}</td>
+                <td style="padding: 8px;">{{ $j->nombre }}</td>
+                <td style="padding: 8px;">{{ $j->tipo }}</td>
+                <td style="padding: 8px;">{{ $j->municipio }}</td>
             </tr>
             @endforeach
         </tbody>
@@ -30,26 +43,26 @@
 
     {{-- Visitadurías --}}
     <h3>Visitadurías</h3>
-    <table style="width:100%; border-collapse: collapse; margin-bottom: 30px;">
+    <table style="width:100%; border-collapse: collapse; margin-bottom: 30px; box-shadow: 0 2px 6px rgba(0,0,0,0.15);">
         <thead style="background-color:#8B1D3D; color:white;">
             <tr>
-                <th>Folio</th>
-                <th>Juzgado</th>
-                <th>Municipio</th>
-                <th>Tipo Visita</th>
-                <th>Fecha Visita</th>
-                <th>Proceso</th>
+                <th style="padding: 10px;">Folio</th>
+                <th style="padding: 10px;">Juzgado</th>
+                <th style="padding: 10px;">Municipio</th>
+                <th style="padding: 10px;">Tipo Visita</th>
+                <th style="padding: 10px;">Fecha Visita</th>
+                <th style="padding: 10px;">Proceso</th>
             </tr>
         </thead>
         <tbody>
             @foreach($visitadurias as $v)
-            <tr>
-                <td>{{ $v->folio }}</td>
-                <td>{{ $v->juzgado->nombre }}</td>
-                <td>{{ $v->municipio }}</td>
-                <td>{{ $v->tipo_visita }}</td>
-                <td>{{ \Carbon\Carbon::parse($v->fecha_visita)->format('d/m/Y') }}</td>
-                <td>{{ $v->proceso }}</td>
+            <tr style="background-color: #fdf2f2; border-bottom: 1px solid #ddd;">
+                <td style="padding: 8px;">{{ $v->folio }}</td>
+                <td style="padding: 8px;">{{ $v->juzgado->nombre }}</td>
+                <td style="padding: 8px;">{{ $v->municipio }}</td>
+                <td style="padding: 8px;">{{ $v->tipo_visita }}</td>
+                <td style="padding: 8px;">{{ \Carbon\Carbon::parse($v->fecha_visita)->format('d/m/Y') }}</td>
+                <td style="padding: 8px;">{{ $v->proceso }}</td>
             </tr>
             @endforeach
         </tbody>
@@ -57,59 +70,59 @@
 
     {{-- Seguimientos --}}
     <h3>Seguimiento de Juzgados</h3>
-    <table style="width:100%; border-collapse: collapse; margin-bottom: 30px;">
+    <table style="width:100%; border-collapse: collapse; margin-bottom: 30px; box-shadow: 0 2px 6px rgba(0,0,0,0.15);">
         <thead style="background-color:#007BFF; color:white;">
             <tr>
-                <th>Folio Visitaduría</th>
-                <th>Juzgado</th>
-                <th>Municipio</th>
-                <th>Índice de Riesgo</th>
-                <th>Última Visita</th>
-                <th>Recomendaciones</th>
+                <th style="padding: 10px;">Folio Visitaduría</th>
+                <th style="padding: 10px;">Juzgado</th>
+                <th style="padding: 10px;">Municipio</th>
+                <th style="padding: 10px;">Índice de Riesgo</th>
+                <th style="padding: 10px;">Última Visita</th>
+                <th style="padding: 10px;">Recomendaciones</th>
             </tr>
         </thead>
         <tbody>
             @foreach($seguimientos as $s)
-            <tr>
-                <td>{{ $s->visitaduria->folio ?? '-' }}</td>
-                <td>{{ $s->visitaduria->juzgado->nombre ?? '-' }}</td>
-                <td>{{ $s->visitaduria->municipio ?? '-' }}</td>
-                <td>{{ $s->indice_riesgo }}</td>
-                <td>{{ \Carbon\Carbon::parse($s->ultima_visita)->format('d/m/Y') }}</td>
-                <td>{{ $s->recomendaciones }}</td>
+            <tr style="background-color: #e6f0ff; border-bottom: 1px solid #ddd;">
+                <td style="padding: 8px;">{{ $s->visitaduria->folio ?? '-' }}</td>
+                <td style="padding: 8px;">{{ $s->visitaduria->juzgado->nombre ?? '-' }}</td>
+                <td style="padding: 8px;">{{ $s->visitaduria->municipio ?? '-' }}</td>
+                <td style="padding: 8px;">{{ $s->indice_riesgo }}</td>
+                <td style="padding: 8px;">{{ \Carbon\Carbon::parse($s->ultima_visita)->format('d/m/Y') }}</td>
+                <td style="padding: 8px;">{{ $s->recomendaciones }}</td>
             </tr>
             @endforeach
         </tbody>
     </table>
 
-    {{-- Trabajo Pendiente --}}
+    {{-- Trabajos Pendientes --}}
     <h3>Trabajos Pendientes</h3>
-    <table style="width:100%; border-collapse: collapse;">
+    <table style="width:100%; border-collapse: collapse; box-shadow: 0 2px 6px rgba(0,0,0,0.15);">
         <thead style="background-color:#21584F; color:white;">
             <tr>
-                <th>Folio</th>
-                <th>Número Expediente</th>
-                <th>Juzgado</th>
-                <th>Municipio</th>
-                <th>Tipo Trabajo</th>
-                <th>Estado</th>
-                <th>Responsable</th>
-                <th>Fecha Límite</th>
-                <th>Tipo Caso</th>
+                <th style="padding: 10px;">Folio</th>
+                <th style="padding: 10px;">Número Expediente</th>
+                <th style="padding: 10px;">Juzgado</th>
+                <th style="padding: 10px;">Municipio</th>
+                <th style="padding: 10px;">Tipo Trabajo</th>
+                <th style="padding: 10px;">Estado</th>
+                <th style="padding: 10px;">Responsable</th>
+                <th style="padding: 10px;">Fecha Límite</th>
+                <th style="padding: 10px;">Tipo Caso</th>
             </tr>
         </thead>
         <tbody>
             @foreach($trabajos as $t)
-            <tr>
-                <td>{{ $t->folio }}</td>
-                <td>{{ $t->numero_expediente }}</td>
-                <td>{{ $t->juzgado->nombre ?? '-' }}</td>
-                <td>{{ $t->municipio }}</td>
-                <td>{{ $t->tipo_trabajo }}</td>
-                <td>{{ $t->estado }}</td>
-                <td>{{ $t->responsable }}</td>
-                <td>{{ \Carbon\Carbon::parse($t->fecha_limite)->format('d/m/Y') }}</td>
-                <td>{{ $t->tipo_caso }}</td>
+            <tr style="background-color: #f8f8f8; border-bottom: 1px solid #ddd;">
+                <td style="padding: 8px;">{{ $t->folio }}</td>
+                <td style="padding: 8px;">{{ $t->numero_expediente }}</td>
+                <td style="padding: 8px;">{{ $t->juzgado->nombre ?? '-' }}</td>
+                <td style="padding: 8px;">{{ $t->municipio }}</td>
+                <td style="padding: 8px;">{{ $t->tipo_trabajo }}</td>
+                <td style="padding: 8px;">{{ $t->estado }}</td>
+                <td style="padding: 8px;">{{ $t->responsable }}</td>
+                <td style="padding: 8px;">{{ \Carbon\Carbon::parse($t->fecha_limite)->format('d/m/Y') }}</td>
+                <td style="padding: 8px;">{{ $t->tipo_caso }}</td>
             </tr>
             @endforeach
         </tbody>
