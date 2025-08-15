@@ -29,4 +29,4 @@ Su objetivo es centralizar y optimizar el registro, consulta y seguimiento de pr
 
 1. Clonar el repositorio:
    ```bash
-   git clone https://github.com/usuario/justitrack.git
+   https://github.com/EmirTorres001/visitaduria_pj
