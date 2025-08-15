@@ -1,6 +1,6 @@
-# ⚖️ JustiTrack
+# ⚖️ Visitadurias en Linea
 
-**JustiTrack** es una aplicación web desarrollada en **Laravel** para la gestión de visitadurías, juzgados, seguimientos y trabajos pendientes.  
+**Visitadurias en Liena** es una aplicación web desarrollada en **Laravel** para la gestión de visitadurías, juzgados, seguimientos y trabajos pendientes.  
 Su objetivo es centralizar y optimizar el registro, consulta y seguimiento de procesos judiciales.
 
 ## 📌 Características
@@ -13,7 +13,7 @@ Su objetivo es centralizar y optimizar el registro, consulta y seguimiento de pr
 
 ## 🛠️ Tecnologías Utilizadas
 
-- **Backend**: [Laravel 10.x](https://laravel.com/)
+- **Backend**: [Laravel 12.x](https://laravel.com/)
 - **Frontend**: Blade, HTML5, CSS3, JavaScript
 - **Base de Datos**: MySQL / MariaDB
 - **Control de Versiones**: Git & GitHub
