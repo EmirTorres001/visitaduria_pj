@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Juzgado extends Model
 {
-    protected $fillable = [
-        'nombre', 'tipo', 'municipio'
-    ];
+    protected $fillable = ['nombre', 'tipo', 'municipio'];
+
 }

@@ -7,35 +7,29 @@ use App\Models\Juzgado;
 use App\Models\Visitaduria;
 use App\Models\TrabajoPendiente;
 use App\Models\Seguimiento;
+use App\Models\SeguimientoJuzgado;
 
 class DashboardController extends Controller
 {
     public function index()
-    {
-        // Totales
-        $totalJuzgados = Juzgado::count();
-        $totalVisitadurias = Visitaduria::count();
-        $totalTrabajos = TrabajoPendiente::count();
-        $totalSeguimientos = Seguimiento::count();
+{
+    $totalJuzgados = Juzgado::count();
+    $totalVisitadurias = Visitaduria::count();
+    $totalTrabajos = TrabajoPendiente::count();
+    $totalSeguimientos = SeguimientoJuzgado::count(); // 👈 Asegúrate que sea este modelo
 
-        // Últimas visitadurías (las 5 más recientes)
-        $ultimasVisitadurias = Visitaduria::with('juzgado')
-                                ->orderBy('created_at', 'desc')
-                                ->take(5)
-                                ->get();
+    $ultimasVisitadurias = Visitaduria::latest()->take(5)->get();
+    $trabajos = TrabajoPendiente::latest()->take(5)->get();
+    $seguimientos = SeguimientoJuzgado::with('visitaduria.juzgado')->latest()->take(5)->get();
 
-        // Trabajos pendientes y seguimientos
-        $trabajos = TrabajoPendiente::with('juzgado')->orderBy('fecha_registro', 'desc')->get();
-        $seguimientos = Seguimiento::with('visitaduria.juzgado')->orderBy('ultima_visita', 'desc')->get();
-
-        return view('informes.index', compact(
-            'totalJuzgados',
-            'totalVisitadurias',
-            'totalTrabajos',
-            'totalSeguimientos',
-            'ultimasVisitadurias',
-            'trabajos',
-            'seguimientos'
-        ));
-    }
+    return view('informes.index', compact(
+        'totalJuzgados',
+        'totalVisitadurias',
+        'totalTrabajos',
+        'totalSeguimientos',
+        'ultimasVisitadurias',
+        'trabajos',
+        'seguimientos'
+    ));
+}
 }

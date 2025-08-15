@@ -10,7 +10,9 @@
         width: 100%;
         max-width: 500px;
     ">
-        <h2 style="text-align: center; color: #21584F; margin-bottom: 25px;">Editar Visitaduría</h2>
+        <h2 style="text-align: center; color: #21584F; margin-bottom: 25px;">
+            {{ isset($visitaduria) ? 'Editar Visitaduría' : 'Registrar Visitaduría' }}
+        </h2>
 
         @if ($errors->any())
             <div style="color: #E53935; margin-bottom: 20px; border: 1px solid #E53935; padding: 10px; border-radius: 8px;">
@@ -22,9 +24,11 @@
             </div>
         @endif
 
-        <form action="{{ route('visitadurias.update', $visitaduria->id) }}" method="POST">
+        <form action="{{ isset($visitaduria) ? route('visitadurias.update', $visitaduria->id) : route('visitadurias.store') }}" method="POST">
             @csrf
-            @method('PUT')
+            @if(isset($visitaduria))
+                @method('PUT')
+            @endif
 
             <div style="margin-bottom: 15px;">
                 <label style="display: block; margin-bottom: 5px; font-weight: 500;">Juzgado:</label>
@@ -33,7 +37,7 @@
                     <option value="">Seleccione un juzgado</option>
                     @foreach($juzgados as $juzgado)
                         <option value="{{ $juzgado->id }}" data-municipio="{{ $juzgado->municipio }}"
-                            {{ $visitaduria->juzgado_id == $juzgado->id ? 'selected' : '' }}>
+                            {{ isset($visitaduria) && $visitaduria->juzgado_id == $juzgado->id ? 'selected' : '' }}>
                             {{ $juzgado->nombre }} ({{ $juzgado->tipo }})
                         </option>
                     @endforeach
@@ -43,28 +47,28 @@
             <div style="margin-bottom: 15px;">
                 <label style="display: block; margin-bottom: 5px; font-weight: 500;">Municipio:</label>
                 <input type="text" id="municipio" name="municipio" readonly
-                       value="{{ $visitaduria->municipio }}"
+                       value="{{ $visitaduria->municipio ?? '' }}"
                        style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ccc; background-color: #f9f9f9;">
             </div>
 
             <div style="margin-bottom: 15px;">
                 <label style="display: block; margin-bottom: 5px; font-weight: 500;">Tipo de visita:</label>
                 <input type="text" name="tipo_visita" required
-                       value="{{ $visitaduria->tipo_visita }}"
+                       value="{{ $visitaduria->tipo_visita ?? '' }}"
                        style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ccc; transition: all 0.2s;">
             </div>
 
             <div style="margin-bottom: 15px;">
                 <label style="display: block; margin-bottom: 5px; font-weight: 500;">Fecha de visita:</label>
                 <input type="date" name="fecha_visita" required
-                       value="{{ $visitaduria->fecha_visita->format('Y-m-d') }}"
+                       value="{{ isset($visitaduria) && $visitaduria->fecha_visita ? \Carbon\Carbon::parse($visitaduria->fecha_visita)->format('Y-m-d') : '' }}"
                        style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ccc; transition: all 0.2s;">
             </div>
 
             <div style="margin-bottom: 20px;">
                 <label style="display: block; margin-bottom: 5px; font-weight: 500;">Proceso:</label>
                 <input type="text" name="proceso" required
-                       value="{{ $visitaduria->proceso }}"
+                       value="{{ $visitaduria->proceso ?? '' }}"
                        style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ccc; transition: all 0.2s;">
             </div>
 
@@ -83,7 +87,7 @@
                     "
                     onmouseover="this.style.opacity='0.9'; this.style.transform='translateY(-2px)';"
                     onmouseout="this.style.opacity='1'; this.style.transform='translateY(0)';">
-                Actualizar Visitaduría
+                {{ isset($visitaduria) ? 'Actualizar Visitaduría' : 'Registrar Visitaduría' }}
             </button>
         </form>
     </div>

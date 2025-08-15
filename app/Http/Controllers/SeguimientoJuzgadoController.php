@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\SeguimientoJuzgado;
 use App\Models\Visitaduria;
 use Illuminate\Http\Request;
+use App\Models\Juzgado;
 
 class SeguimientoJuzgadoController extends Controller
 {
@@ -15,10 +16,13 @@ class SeguimientoJuzgadoController extends Controller
     }
 
     public function create()
-    {
-        $visitadurias = Visitaduria::with('juzgado')->get();
-        return view('seguimiento_juzgados.create', compact('visitadurias'));
-    }
+{
+    // Traer todas las visitadurías junto con su juzgado relacionado
+    $visitadurias = Visitaduria::with('juzgado')->get();
+
+    return view('seguimiento_juzgados.create', compact('visitadurias'));
+}
+
 
     public function store(Request $request)
     {

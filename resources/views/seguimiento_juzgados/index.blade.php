@@ -2,7 +2,6 @@
 
 @section('content')
 <div style="padding: 20px;">
-    <h2>Seguimiento de Juzgados</h2>
 
     <a href="{{ route('seguimiento_juzgados.create') }}" style="background: #21584F; color: white; padding: 8px 15px; border-radius: 5px; text-decoration: none;">
         + Nuevo Seguimiento
@@ -39,7 +38,7 @@
                 <td>{{ $s->recomendaciones ?? '-' }}</td>
                 <td>
                     <a href="{{ route('seguimiento_juzgados.edit', $s->id) }}" 
-                       style="background: orange; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none;">
+                       style="background: rgb(0, 193, 251); color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none;">
                         Editar
                     </a>
                     <form action="{{ route('seguimiento_juzgados.destroy', $s->id) }}" method="POST" style="display:inline;">

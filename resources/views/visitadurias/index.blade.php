@@ -37,14 +37,22 @@
                     <td style="padding: 8px;">{{ $visitaduria->proceso }}</td>
                     <td style="padding: 8px;">
                         <a href="{{ route('visitadurias.edit', $visitaduria->id) }}" 
-                           style="margin-right: 5px; color: blue;">Editar</a>
+   class="btn btn-warning btn-sm" 
+   style="margin-right: 5px;">
+   ✏ Editar
+</a>
 
-                        <form action="{{ route('visitadurias.destroy', $visitaduria->id) }}" method="POST" style="display:inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" onclick="return confirm('¿Deseas eliminar esta visitaduría?')"
-                                style="color: red; background:none; border:none; cursor:pointer;">Eliminar</button>
-                        </form>
+<form action="{{ route('visitadurias.destroy', $visitaduria->id) }}" 
+      method="POST" 
+      style="display:inline;">
+    @csrf
+    @method('DELETE')
+    <button type="submit" 
+            class="btn btn-danger btn-sm"
+            onclick="return confirm('¿Deseas eliminar esta visitaduría?')">
+        🗑 Eliminar
+    </button>
+</form>
                     </td>
                 </tr>
             @endforeach

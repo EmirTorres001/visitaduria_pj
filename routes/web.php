@@ -8,7 +8,9 @@ use App\Http\Controllers\LibroGobiernoController;
 use App\Http\Controllers\InformeController;
 use App\Http\Controllers\DashboardController;
 
-Route::view('/', 'home')->name('home');
+#Route::view('/', 'home')->name('home');
+Route::get('/', [DashboardController::class, 'index'])->name('informes.index');
+
 
 Route::get('/juzgados', [JuzgadoController::class, 'index'])->name('juzgados.index');
 Route::get('/juzgados/crear', [JuzgadoController::class, 'create'])->name('juzgados.create');

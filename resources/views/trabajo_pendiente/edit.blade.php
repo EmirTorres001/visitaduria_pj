@@ -1,107 +1,100 @@
 @extends('layouts.app')
 
 @section('content')
-<div style="padding: 20px; max-width: 800px; margin: auto;">
-    <h2>Editar Trabajo Pendiente</h2>
+<div style="max-width: 700px; margin: auto; padding: 20px;">
 
-    @if ($errors->any())
-        <div style="color: red; margin-bottom: 10px;">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+    <div style="background: #fff; padding: 30px 25px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1);">
+        <h2 style="text-align: center; color: #21584F; margin-bottom: 25px; font-weight: 700;">Editar Trabajo Pendiente</h2>
 
-    <form action="{{ route('trabajo_pendiente.update', $trabajo->id) }}" method="POST">
-        @csrf
-        @method('PUT')
+        @if ($errors->any())
+            <div style="color: #E53935; margin-bottom: 20px; border: 1px solid #E53935; padding: 12px; border-radius: 8px;">
+                <ul style="margin: 0; padding-left: 20px;">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
 
-        <div style="margin-bottom: 10px;">
-            <label>Folio:</label>
-            <input type="text" name="folio" value="{{ $trabajo->folio }}" required style="width: 100%; padding: 8px;">
-        </div>
+        <form action="{{ route('trabajo_pendiente.update', $trabajo->id) }}" method="POST">
+            @csrf
+            @method('PUT')
 
-        <div style="margin-bottom: 10px;">
-            <label>Número de Expediente:</label>
-            <input type="text" name="numero_expediente" value="{{ $trabajo->numero_expediente }}" required style="width: 100%; padding: 8px;">
-        </div>
+            <div style="display: grid; gap: 15px;">
 
-        <div style="margin-bottom: 10px;">
-            <label>Juzgado:</label>
-            <select name="juzgado_id" id="juzgado-select" required style="width: 100%; padding: 8px;">
-                <option value="">Seleccione un juzgado</option>
-                @foreach($juzgados as $juzgado)
-                    <option value="{{ $juzgado->id }}"
-                        data-municipio="{{ $juzgado->municipio }}"
-                        {{ $trabajo->juzgado_id == $juzgado->id ? 'selected' : '' }}>
-                        {{ $juzgado->nombre }} ({{ $juzgado->tipo }})
-                    </option>
-                @endforeach
-            </select>
-        </div>
+                <input type="text" name="folio" placeholder="Folio" value="{{ $trabajo->folio }}" required
+                       style="padding: 12px; border-radius: 8px; border: 1px solid #ccc; transition: 0.3s;">
 
-        <div style="margin-bottom: 10px;">
-            <label>Municipio:</label>
-            <input type="text" name="municipio" id="municipio" value="{{ $trabajo->municipio }}" readonly style="width: 100%; padding: 8px; background-color: #f0f0f0;">
-        </div>
+                <input type="text" name="numero_expediente" placeholder="Número de Expediente" value="{{ $trabajo->numero_expediente }}" required
+                       style="padding: 12px; border-radius: 8px; border: 1px solid #ccc; transition: 0.3s;">
 
-        <div style="margin-bottom: 10px;">
-            <label>Fecha de Registro:</label>
-            <input type="date" name="fecha_registro" value="{{ $trabajo->fecha_registro->format('Y-m-d') }}" required style="width: 100%; padding: 8px;">
-        </div>
+                <select name="juzgado_id" id="juzgado-select" required
+                        style="padding: 12px; border-radius: 8px; border: 1px solid #ccc; transition: 0.3s;">
+                    <option value="">Seleccione un juzgado</option>
+                    @foreach($juzgados as $juzgado)
+                        <option value="{{ $juzgado->id }}"
+                                data-municipio="{{ $juzgado->municipio }}"
+                                {{ $trabajo->juzgado_id == $juzgado->id ? 'selected' : '' }}>
+                            {{ $juzgado->nombre }} ({{ $juzgado->tipo }})
+                        </option>
+                    @endforeach
+                </select>
 
-        <div style="margin-bottom: 10px;">
-            <label>Fecha de Audiencia:</label>
-            <input type="date" name="fecha_audiencia" value="{{ $trabajo->fecha_audiencia ? $trabajo->fecha_audiencia->format('Y-m-d') : '' }}" style="width: 100%; padding: 8px;">
-        </div>
+                <input type="text" name="municipio" id="municipio" placeholder="Municipio" readonly
+                       value="{{ $trabajo->municipio }}"
+                       style="padding: 12px; border-radius: 8px; border: 1px solid #ccc; background-color: #f5f5f5; transition: 0.3s;">
 
-        <div style="margin-bottom: 10px;">
-            <label>Tipo de Trabajo:</label>
-            <input type="text" name="tipo_trabajo" value="{{ $trabajo->tipo_trabajo }}" required style="width: 100%; padding: 8px;">
-        </div>
+                <input type="date" name="fecha_registro" value="{{ $trabajo->fecha_registro->format('Y-m-d') }}" required
+                       style="padding: 12px; border-radius: 8px; border: 1px solid #ccc; transition: 0.3s;">
 
-        <div style="margin-bottom: 10px;">
-            <label>Estado:</label>
-            <select name="estado" required style="width: 100%; padding: 8px;">
-                @foreach(['Pendiente','En proceso','Requiere revisión','Finalizado'] as $estado)
-                    <option value="{{ $estado }}" {{ $trabajo->estado == $estado ? 'selected' : '' }}>{{ $estado }}</option>
-                @endforeach
-            </select>
-        </div>
+                <input type="date" name="fecha_audiencia" value="{{ $trabajo->fecha_audiencia ? $trabajo->fecha_audiencia->format('Y-m-d') : '' }}"
+                       style="padding: 12px; border-radius: 8px; border: 1px solid #ccc; transition: 0.3s;">
 
-        <div style="margin-bottom: 10px;">
-            <label>Responsable:</label>
-            <input type="text" name="responsable" value="{{ $trabajo->responsable }}" required style="width: 100%; padding: 8px;">
-        </div>
+                <input type="text" name="tipo_trabajo" placeholder="Tipo de Trabajo" value="{{ $trabajo->tipo_trabajo }}" required
+                       style="padding: 12px; border-radius: 8px; border: 1px solid #ccc; transition: 0.3s;">
 
-        <div style="margin-bottom: 10px;">
-            <label>Fecha Límite:</label>
-            <input type="date" name="fecha_limite" value="{{ $trabajo->fecha_limite ? $trabajo->fecha_limite->format('Y-m-d') : '' }}" style="width: 100%; padding: 8px;">
-        </div>
+                <select name="estado" required
+                        style="padding: 12px; border-radius: 8px; border: 1px solid #ccc; transition: 0.3s;">
+                    @foreach(['Pendiente','En proceso','Requiere revisión','Finalizado'] as $estado)
+                        <option value="{{ $estado }}" {{ $trabajo->estado == $estado ? 'selected' : '' }}>{{ $estado }}</option>
+                    @endforeach
+                </select>
 
-        <div style="margin-bottom: 10px;">
-            <label>Tipo de Caso:</label>
-            <select name="tipo_caso" required style="width: 100%; padding: 8px;">
-                @foreach(['Civil','Penal','Familiar','Mixto'] as $tipo)
-                    <option value="{{ $tipo }}" {{ $trabajo->tipo_caso == $tipo ? 'selected' : '' }}>{{ $tipo }}</option>
-                @endforeach
-            </select>
-        </div>
+                <input type="text" name="responsable" placeholder="Responsable" value="{{ $trabajo->responsable }}" required
+                       style="padding: 12px; border-radius: 8px; border: 1px solid #ccc; transition: 0.3s;">
 
-        <button type="submit" style="background-color: #21584F; color: white; padding: 10px 20px; border: none; border-radius: 5px;">Actualizar Trabajo</button>
-    </form>
+                <input type="date" name="fecha_limite" value="{{ $trabajo->fecha_limite ? $trabajo->fecha_limite->format('Y-m-d') : '' }}"
+                       style="padding: 12px; border-radius: 8px; border: 1px solid #ccc; transition: 0.3s;">
+
+                <select name="tipo_caso" required
+                        style="padding: 12px; border-radius: 8px; border: 1px solid #ccc; transition: 0.3s;">
+                    @foreach(['Civil','Penal','Familiar','Mixto'] as $tipo)
+                        <option value="{{ $tipo }}" {{ $trabajo->tipo_caso == $tipo ? 'selected' : '' }}>{{ $tipo }}</option>
+                    @endforeach
+                </select>
+
+                <button type="submit"
+                        style="background: linear-gradient(90deg, #21584F, #4CAF50); color: white; padding: 14px; border: none; border-radius: 10px; font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.3s;">
+                    Actualizar Trabajo
+                </button>
+
+            </div>
+        </form>
+    </div>
 </div>
 
 <script>
-    // Actualizar el municipio al cambiar el juzgado
+document.addEventListener('DOMContentLoaded', function () {
     const juzgadoSelect = document.getElementById('juzgado-select');
     const municipioInput = document.getElementById('municipio');
 
-    juzgadoSelect.addEventListener('change', function() {
-        const selectedOption = this.options[this.selectedIndex];
-        municipioInput.value = selectedOption.dataset.municipio || '';
-    });
+    function actualizarMunicipio() {
+        const selectedOption = juzgadoSelect.options[juzgadoSelect.selectedIndex];
+        municipioInput.value = selectedOption.getAttribute('data-municipio') || '';
+    }
+
+    juzgadoSelect.addEventListener('change', actualizarMunicipio);
+    actualizarMunicipio();
+});
 </script>
 @endsection

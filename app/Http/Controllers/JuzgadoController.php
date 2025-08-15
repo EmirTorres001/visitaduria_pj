@@ -7,32 +7,31 @@ use Illuminate\Http\Request;
 
 class JuzgadoController extends Controller
 {
+    // Mostrar todos los juzgados
     public function index()
-    {
-        $juzgados = Juzgado::all();
-        return view('juzgados.index', compact('juzgados'));
-    }
+{
+    $juzgados = Juzgado::all();
+    return view('juzgados.index', compact('juzgados'));
+}
 
-    public function create()
-    {
-        return view('juzgados.create');
-    }
+public function create()
+{
+    return view('juzgados.create');
+}
 
-    public function store(Request $request)
-    {
-        $request->validate([
-    'nombre' => 'required|string|max:255',
-    'tipo' => 'required|in:Civil,Familiar,Penal,Mixto',
-    'municipio' => 'required|string|max:255',
-]);
+public function store(Request $request)
+{
+    $request->validate([
+        'nombre' => 'required|string|max:255',
+        'tipo' => 'required|string|max:50',
+        'municipio' => 'required|string|max:100',
+    ]);
 
-        Juzgado::create($request->all());
+    Juzgado::create($request->all());
+    return redirect()->route('juzgados.index')->with('success', 'Juzgado creado correctamente.');
+}
 
-        return redirect()->route('juzgados.index')
-                         ->with('success', 'Juzgado registrado correctamente.');
-    }
-
-    public function edit($id)
+public function edit($id)
 {
     $juzgado = Juzgado::findOrFail($id);
     return view('juzgados.edit', compact('juzgado'));
@@ -42,8 +41,8 @@ public function update(Request $request, $id)
 {
     $request->validate([
         'nombre' => 'required|string|max:255',
-        'tipo' => 'required|in:Civil,Familiar,Penal,Mixto',
-        'municipio' => 'required|string|max:255',
+        'tipo' => 'required|string|max:50',
+        'municipio' => 'required|string|max:100',
     ]);
 
     $juzgado = Juzgado::findOrFail($id);
@@ -59,4 +58,5 @@ public function destroy($id)
 
     return redirect()->route('juzgados.index')->with('success', 'Juzgado eliminado correctamente.');
 }
+
 }

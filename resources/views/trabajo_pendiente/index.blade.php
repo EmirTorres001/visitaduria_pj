@@ -46,21 +46,23 @@
                 <td style="padding: 8px;">{{ date('d/m/Y', strtotime($trabajo->fecha_limite)) }}</td>
                 <td style="padding: 8px;">{{ $trabajo->tipo_caso }}</td>
                 <td style="padding: 8px;">
-                    <a href="{{ route('trabajo_pendiente.edit', $trabajo->id) }}"
-                       style="background-color: #4CAF50; color: white; padding: 5px 10px; text-decoration: none; border-radius: 4px;">
-                        Editar
-                    </a>
+    <div style="display: flex; gap: 5px; justify-content: center;">
+        <a href="{{ route('trabajo_pendiente.edit', $trabajo->id) }}"
+           style="background-color: #4CAF50; color: white; padding: 5px 10px; text-decoration: none; border-radius: 4px; display: inline-block;">
+            ✏ Editar
+        </a>
 
-                    <form action="{{ route('trabajo_pendiente.destroy', $trabajo->id) }}" method="POST" style="display:inline;">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit"
-                                onclick="return confirm('¿Seguro que deseas eliminar este trabajo?')"
-                                style="background-color: #E53935; color: white; padding: 5px 10px; border: none; border-radius: 4px; cursor: pointer;">
-                            Eliminar
-                        </button>
-                    </form>
-                </td>
+        <form action="{{ route('trabajo_pendiente.destroy', $trabajo->id) }}" method="POST" style="display:inline;">
+            @csrf
+            @method('DELETE')
+            <button type="submit"
+                    onclick="return confirm('¿Seguro que deseas eliminar este trabajo?')"
+                    style="background-color: #E53935; color: white; padding: 5px 10px; border: none; border-radius: 4px; cursor: pointer;">
+                🗑 Eliminar
+            </button>
+        </form>
+    </div>
+</td>
             </tr>
             @endforeach
         </tbody>

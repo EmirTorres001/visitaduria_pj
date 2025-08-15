@@ -3,7 +3,6 @@
 @section('content')
 <div style="padding: 20px; max-width: 1400px; margin: auto;">
 
-    <h2 style="text-align:center; margin-bottom: 20px;">Dashboard del Sistema</h2>
 
     {{-- Totales --}}
     <div style="display: flex; gap: 20px; justify-content: space-around; margin-bottom: 30px;">

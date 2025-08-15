@@ -32,11 +32,11 @@
                         style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ccc; transition: all 0.2s;">
                     <option value="">Seleccione un juzgado</option>
                     @foreach($juzgados as $juzgado)
-                        <option value="{{ $juzgado->id }}" data-municipio="{{ $juzgado->municipio }}"
-                            {{ $visitaduria->juzgado_id == $juzgado->id ? 'selected' : '' }}>
-                            {{ $juzgado->nombre }} ({{ $juzgado->tipo }})
-                        </option>
-                    @endforeach
+    <option value="{{ $juzgado->id }}" data-municipio="{{ $juzgado->municipio }}"
+        {{ $visitaduria->juzgado_id == $juzgado->id ? 'selected' : '' }}>
+        {{ $juzgado->nombre }} ({{ $juzgado->tipo }})
+    </option>
+@endforeach
                 </select>
             </div>
 

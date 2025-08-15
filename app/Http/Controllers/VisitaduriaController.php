@@ -21,32 +21,35 @@ class VisitaduriaController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $request->validate([
-            'juzgado_id' => 'required|exists:juzgados,id',
-            'tipo_visita' => 'required|string|max:255',
-            'fecha_visita' => 'required|date',
-            'proceso' => 'required|string|max:255',
-        ]);
+{
+    $request->validate([
+        'juzgado_id' => 'required|exists:juzgados,id',
+        'tipo_visita' => 'required|string',
+        'fecha_visita' => 'required|date',
+        'proceso' => 'required|string',
+    ]);
 
-        $juzgado = Juzgado::find($request->juzgado_id);
+    $visitaduria = new \App\Models\Visitaduria();
+    $visitaduria->folio = 'VST-' . time(); // ejemplo de folio único
+    $visitaduria->juzgado_id = $request->juzgado_id;
+    $visitaduria->municipio = $request->municipio;
+    $visitaduria->tipo_visita = $request->tipo_visita;
+    $visitaduria->fecha_visita = $request->fecha_visita;
+    $visitaduria->proceso = $request->proceso;
+    $visitaduria->save();
 
-        Visitaduria::create([
-            'juzgado_id' => $request->juzgado_id,
-            'municipio' => $juzgado->municipio,
-            'tipo_visita' => $request->tipo_visita,
-            'fecha_visita' => $request->fecha_visita,
-            'proceso' => $request->proceso,
-        ]);
+    return redirect()->route('visitadurias.index')->with('success', 'Visitaduría registrada correctamente.');
+}
 
-        return redirect()->route('visitadurias.index')->with('success', 'Visitaduría registrada correctamente');
-    }
+    public function edit($id)
+{
+    $visitaduria = \App\Models\Visitaduria::findOrFail($id);
+    $juzgados = \App\Models\Juzgado::all(); // <-- Trae todos los juzgados
 
-    public function edit(Visitaduria $visitaduria)
-    {
-        $juzgados = Juzgado::all();
-        return view('visitadurias.edit', compact('visitaduria', 'juzgados'));
-    }
+    return view('visitadurias.edit', compact('visitaduria', 'juzgados'));
+}
+
+
 
     public function update(Request $request, Visitaduria $visitaduria)
     {
